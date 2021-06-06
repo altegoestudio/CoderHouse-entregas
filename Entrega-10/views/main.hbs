@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="formulario">
+    <h2>Ingrese Producto</h2>
+    <form action="/api/productos/guardar" method="POST" >
+      <div class="mb-3">
+        <label for="input1" class="form-label">Nombre</label>
+        <input type="text" name="title" class="form-control" id="input1">
+      </div>
+      <div class="mb-3">
+        <label for="input2" class="form-label">Precio</label>
+        <input type="text" name="price" class="form-control" id="input2">
+      </div>
+      <div class="mb-3">
+        <label for="input3" class="form-label">Foto URL</label>
+        <input type="text" name="thumbnail" class="form-control" id="input3">
+      </div>
+
+      <div class="d-grid gap-2 btncontainer">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+    <form action="/api/productos/listar" method="GET" >
+      <div class="d-grid gap-2 btncontainer">
+        <button type="submit" class="btn ">Ver Productos</button>
+      </div>
+    </form>
