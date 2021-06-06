@@ -1,0 +1,35 @@
+Que es Front-end y Back-end?
+
+Cliente->Server->Database->Server->cliente
+
+
+
+Frontend:
+- Se ejecuta del lado del cliente
+- Interactua con el usuario
+- Lo que vemos en la pantalla
+- Css y Html
+- Efectos
+- Animaciones
+
+Backend:
+- Se ejecuta del lado del servidor
+- Maneja la base de datos
+- Procesa y ordena la informacion
+
+---------------------------------------------
+Consola
+
+console.log();
+console.error();
+console.warn();
+console.clear();
+
+--------------------------------------------
+
+Stack MERN
+
+MongoDB: base de datos
+ExpressJS: servidores en NodeJS
+ReactJS: interfases en JS
+NodeJS: entorno de ejecucion JS
