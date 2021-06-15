@@ -1,0 +1,24 @@
+extends layout
+
+block partial 
+    body
+      div.container
+        div.formulario
+          div.jumbotron
+            h1="Lista de productos"    
+            ul
+              if hayProductos
+                table(class="table table-dark")
+                  tr
+                    th="Nombre"
+                    th="precio"
+                    th="Foto"
+                  each n in productos
+                    tr
+                      td=n.title
+                      td=n.price
+                      td=n.thumbnail
+              else
+                h3(class="alert alert-warning")="No se encontraron productos"
+            a(href="/")
+              button(type="submit" class="btn")="Volver"
