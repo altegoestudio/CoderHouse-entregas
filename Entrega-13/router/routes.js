@@ -1,30 +1,24 @@
-const express = require("express");
-const productos =  require('../api/productos');
+const express = require('express');
 const router = express.Router();
+const productos = require('../api/producto');
 
+router.get('/vista', (req, res) => {
+    let prods = productos.enlistar();
+    res.render('lista', { productos: prods, hayProductos: prods.length });
+});
 
 router.get('/listar',(req,res)=>{
   let lista = productos.enlistar();
-  if(typeof lista != "string"){
-    res.render('list', { productos: lista, hayProductos: true , titulo: "todos los productos"});
-  }else{
-    res.render('list', { hayProductos: false , titulo: "todos los productos"});
-  }
+  res.json(lista);
 });
 
 router.get('/listar/:id',(req,res)=>{
   let productoEncontrado = productos.showProductById(req.params.id);
-
-  if(typeof lista != "string"){
-    res.render('list', { productos: productoEncontrado, hayProductos: true, titulo: "producto seleccionado"});
-  }else{
-    res.render('list', { hayProductos: false , titulo: "producto seleccionado"});
-  }
+  res.json(productoEncontrado);
 });
 
 router.post('/guardar',(req,res)=>{
   let productoGuardado = productos.guardar(req.body)
-  //res.send(productoGuardado);
   res.redirect('/api/productos/listar')
 });
 
