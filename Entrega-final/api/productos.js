@@ -1,21 +1,12 @@
+const fs = require("fs")
+
 class Productos {
   constructor() {
-      this.lista = [
-        {
-          id: 0,
-          timestamp: "test",
-          nombre: "Producto de prueba",
-          descripcion: "este es un producto de prueba",
-          codigo: 1414,
-          fotoUrl: "http://",
-          precio: 123.12,
-          stock: 5
-        }
-      ],
+      this.lista = [],
       this.count = 1
   }
   listar(){
-    if(this.lista.length > 0){
+    if(this.lista.length > 0 || true){
       return this.lista;
     }else{
       return "no se encontraron productos";
@@ -31,10 +22,12 @@ class Productos {
     }
   }
   agregar(producto){
-    let nuevoProducto = producto
+    let nuevoProducto = producto;
+    nuevoProducto.timestamp = Date.now();
     nuevoProducto.id = this.count;
     this.count++;
     this.lista.push(nuevoProducto);
+    this.persistir();
     return nuevoProducto
   }
   actualizar(id,info){
@@ -42,6 +35,8 @@ class Productos {
 
     if(index != -1){
       var updated = Object.assign(this.lista[index], info)
+      this.lista[index].timestamp = Date.now();
+      this.persistir();
       return this.lista[index];
     }else{
       return "no se encontro producto para actualizar";
@@ -53,10 +48,16 @@ class Productos {
 
     if(index != -1){
       this.lista.splice(index,1);
+      this.persistir();
       return productoBorrado
     }else{
       return "no se encontro producto para borrar";
     }
+  }
+  async persistir(){
+    await fs.promises.writeFile("./persistencia/productos.txt", JSON.stringify(this.lista))
+    await fs.promises.writeFile("./persistencia/productosCount.txt", JSON.stringify( {count: this.count} ))
+    return true
   }
 }
 

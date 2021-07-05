@@ -7,9 +7,13 @@ function global(req,res,next){
   console.log("global");
   next();
 }
+router.get('/list0r', (req,res)=>{
+  let producto = productos.listar()
+  res.json(producto)
+})
 
 router.get('/listar/:id?', (req, res)=>{
-  let productobyId = productos.listarId(req.params.id)
+  let productobyId = productos.listarId(req.params.id);
   res.json(productobyId)
 })
 
