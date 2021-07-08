@@ -2,14 +2,22 @@ const express = require('express');
 const router = express.Router();
 const dbMensajes = require("../models/mensajes");
 
+
+dbMensajes.init()
+
 router.post("/guardar", async (req,res)=>{
   let mensajesGuardados = await dbMensajes.create(req.body);
   res.json(mensajesGuardados);
 })
 
 router.get("/", async (req,res)=>{
-  let listaMensajes = await dbMensajes.read();
-  res.json(listaMensajes);
+  try{
+    let listaMensajes = await dbMensajes.read();
+    res.json(listaMensajes);
+  }catch(error){
+    console.log(error);
+    res.status(500).send(error);
+  }
 })
 
 router.put("/actualizar/:id", async (req,res)=>{

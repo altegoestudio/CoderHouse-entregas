@@ -5,7 +5,7 @@ const mysql = {
     port: 3306,
     user: "root",
     password: "",
-    database: "db_productos"
+    database: "productos"
   },
   pool: {min: 0, max:7}
 }

@@ -8,7 +8,7 @@ class Productos{
   }
   async create(data){
     try{
-      let producto = await knex("productos").insert(data)
+      let producto = await knex("users").insert(data)
       return producto
     }catch(error){
       throw error
@@ -16,7 +16,7 @@ class Productos{
   }
   async read(){
     try{
-      let producto = await knex("productos").select('*');
+      let producto = await knex("users").select('*');
       return producto
     }catch(error){
       throw error
@@ -24,7 +24,7 @@ class Productos{
   }
   async update(id,data){
     try{
-      let producto = await knex("productos").where('id', parseInt(id)).update({
+      let producto = await knex("users").where('id', parseInt(id)).update({
         name: data.name,
         lastname: data.lastname
       })
@@ -35,7 +35,7 @@ class Productos{
   }
   async delete(id){
     try{
-      let producto = await knex.from('productos').where('id', parseInt(id)).del()
+      let producto = await knex.from('users').where('id', parseInt(id)).del()
       return producto
     }catch(error){
       throw error
