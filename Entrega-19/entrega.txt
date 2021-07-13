@@ -1,0 +1,170 @@
+use ecommerce
+
+//0
+db.createCollection("mensajes");
+db.createCollection("productos");
+
+//1
+db.Productos.insert({
+    nombre: "Producto 1,
+    descripcion: "este es un producto de prueba",
+    codigo: 1414,
+    fotoUrl: http://",
+    precio: 120,
+    stock: 1
+  })
+db.Productos.insert({
+    nombre: "Producto 2,
+    descripcion: "este es un producto de prueba",
+    codigo: 1415,
+    fotoUrl: http://",
+    precio: 580,
+    stock: 4
+  })
+db.Productos.insert({
+    nombre: "Producto 3,
+    descripcion: "este es un producto de prueba",
+    codigo: 1416,
+    fotoUrl: http://",
+    precio: 900,
+    stock: 2
+  })
+db.Productos.insert({
+    nombre: "Producto 4,
+    descripcion: "este es un producto de prueba",
+    codigo: 1417,
+    fotoUrl: http://",
+    precio: 1700,
+    stock: 5
+  })
+db.Productos.insert({
+    nombre: "Producto 5,
+    descripcion: "este es un producto de prueba",
+    codigo: 1418,
+    fotoUrl: http://",
+    precio: 2300,
+    tock: 6
+  })
+db.Productos.insert({
+    nombre: "Producto 6,
+    descripcion: "este es un producto de prueba",
+    codigo: 1419,
+    fotoUrl: http://",
+    precio: 2860,
+    stock: 2
+  })
+db.Productos.insert({
+    nombre: "Producto 7,
+    descripcion: "este es un producto de prueba",
+    codigo: 1422,
+    fotoUrl: http://",
+    precio: 3352,
+    stock: 3
+  })
+db.Productos.insert({
+    nombre: "Producto 8,
+    descripcion: "este es un producto de prueba",
+    codigo: 1424,
+    fotoUrl: http://",
+    precio: 4320,
+    stock: 7
+  })
+db.Productos.insert({
+    nombre: "Producto 9,
+    descripcion: "este es un producto de prueba",
+    codigo: 1423,
+    fotoUrl: http://",
+    precio: 4990,
+    stock: 6
+  })
+db.Productos.insert({
+    nombre: "Producto 10,
+    descripcion: "este es un producto de prueba",
+    codigo: 1426,
+    fotoUrl: http://",
+    precio: 5000,
+    stock: 5
+  })
+
+
+
+db.mensajes.insert({
+    email:"abdc@hotmail.com",
+    mensaje: "Hola este es un mensaje"
+  )
+db.mensajes.insert({
+    email:"asdadsc@hotmail.com",
+    mensaje: "Hola este es un mensaje"
+  )
+db.mensajes.insert({
+    email:"adfhgfc@hotmail.com",
+    mensaje: "Hola este es un mensaje"
+  )
+db.mensajes.insert({
+    email:"adfhc@hotmail.com",
+    mensaje: "Hola este es un mensaje"
+  )
+db.mensajes.insert({
+    email:"abdjdfdjbdc@hotmail.com",
+    mensaje: "Hola este es un mensaje"
+  )
+db.mensajes.insert({
+    email:"adfjdc@hotmail.com",
+    mensaje: "Hola este es un mensaje"
+  )
+db.mensajes.insert({
+    email:"abfjc@hotmail.com",
+    mensaje: "Hola este es un mensaje"
+  )
+db.mensajes.insert({
+    email:"abdfjc@hotmail.com",
+    mensaje: "Hola este es un mensaje"
+  )
+db.mensajes.insert({
+    email:"adfjc@hotmail.com",
+    mensaje: "Hola este es un mensaje"
+  )
+
+//3
+db.productos.find()
+db.mensajes.find()
+
+//4
+db.productos.count()
+db.mensajes.count()
+
+//5
+  //a
+  db.productos.insertOne({
+      nombre: "Producto 11,
+      descripcion: "este es un producto de prueba",
+      codigo: 2414,
+      fotoUrl: http://",
+      precio: 2120,stock4
+    })
+  //b
+  db.productos.find({"precio": {$lt: 1000}})
+
+  db.productos.find({"precio": {$in: [1000,3000]}})
+
+  db.productos.find({"precio": {$gt: 3000}})
+
+  db.productos.find({}).sort({"precio": {$gt: 0}}).skip(2).limit(1)
+
+  //c
+  db.productos.update({},{$set: {"stock": 100}})
+  //d
+  db.productos.upadte({"precio: {$gt: 4000}"},{"stock": 0})
+  //e borrar los productos con el precio menor a 1000
+
+  db.productos.deleteOne({"precio": {$lt: 1000}})
+
+//6 crear un ususario pepe clave: asd456 que solo pueda leer la base de datos ecommerce verificar que pepe no pueda cambiar la informacion
+
+db.createUser({
+  user: "pepe",
+  pwd: "asd456",
+  roles: [
+    { role: "read", db: "ecommerce"}
+  ]
+})
