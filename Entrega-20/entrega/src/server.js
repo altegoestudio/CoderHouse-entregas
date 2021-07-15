@@ -13,9 +13,8 @@ app.use((err, req, res, next) => {
     return res.status(500).send('Algo se rompio!');
 });
 
-const usersRouter = require('./routes/users');
+
 const messagesRouter = require('./routes/messages');
-app.use('/api', usersRouter);
 app.use('/api', messagesRouter);
 
 
