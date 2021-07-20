@@ -14,7 +14,7 @@ app.use((err, req, res, next) => {
 });
 
 
-const messagesRouter = require('./routes/messages');
+const messagesRouter = require('./routes/messages'); 
 app.use('/api', messagesRouter);
 
 
