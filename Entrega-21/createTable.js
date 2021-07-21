@@ -1,4 +1,4 @@
-const options1 =  require('./config/database');
+const options1 =  require('./config/mysql');
 const knex = require('knex')(options1);
 
 
@@ -8,7 +8,7 @@ knex.schema.createTable('productos', table =>{
   table.increments("id");
   table.string("title");
   table.integer("price");
-  table.string("thumbnail")
+  table.string("thumbnail");
 }).then(()=>{
   console.log("se creo tabla productos");
 }).catch((error)=>{

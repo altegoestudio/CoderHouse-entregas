@@ -1,25 +1,29 @@
 let config = require("../config/dbconfig.json");
-var persitencia = config.mysql;
+var persitencia = config.mongo;
 const db = require(`../persistencias/${persitencia}`)
+
 
 class Productos{
   constructor(){
 
   }
-  create(){
-    return db.create();
+  async create(data){
+    var nuevoProducto = data
+    let a = await db.create("productos", nuevoProducto);
+    return a
   }
-  read(){
-    return db.read();
+  async read(){
+    let a = await db.read("productos");
+    return a
   }
-  readById(){
-    return db.readById();
+  async readById(id){
+    return db.readById("productos", id);
   }
-  update(){
-    return db.update();
+  async update(id, data){
+    return db.update("productos", id, data);
   }
-  delete(){
-    return db.delete();
+  async delete(id){
+    return db.delete("productos",id);
   }
 }
 

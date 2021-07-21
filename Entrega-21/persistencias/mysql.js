@@ -5,46 +5,47 @@ class Mysql{
   constructor(){
 
   }
-  async read(){
+  async read(tabla){
     try{
-      let producto = await knex("productos").select('*');
-      return producto;
+      let obj = await knex(tabla).select('*');
+      return obj;
     }catch(error){
       throw error
     }
   }
-  async readById(id){
+  async readById(tabla, id){
     try{
-      let producto = await knex("productos").where('id', parseInt(id))
-      return producto;
+      let obj = await knex(tabla).where('id', parseInt(id))
+      return obj;
     }catch(error){
       throw error
     }
   }
-  async create(data){
+  async create(tabla, data){
     try{
-      let producto = await knex("productos").insert(data)
-      return producto
+      console.log("d:",data);
+      let obj = await knex("productos").insert(data)
+      return obj
     }catch(error){
       throw error
     }
   }
-  async update(id,data){
+  async update(tabla,id,data){
     try{
-      let producto = await knex("productos").where('id', parseInt(id)).update({
+      let obj = await knex(tabla).where('id', parseInt(id)).update({
         title: data.title,
         price: data.price,
         thumbnail: data.thumbnail
       })
-      return producto
+      return obj
     }catch(error){
       throw error
     }
   }
-  async delete(id){
+  async delete(tabla, id){
     try{
-      let producto = await knex("productos").where('id', parseInt(id)).del()
-      return producto
+      let obj = await knex(tabla).where('id', parseInt(id)).del()
+      return obj
     }catch(error){
       throw error
     }
