@@ -1,5 +1,5 @@
 let config = require("../config/dbconfig.json");
-var persitencia = config.mongo;
+var persitencia = config.mysql;
 const db = require(`../persistencias/${persitencia}`)
 
 

@@ -24,7 +24,7 @@ router.put("/actualizar/:id", async (req,res)=>{
 })
 
 router.delete("/delete/:id", async (req,res)=>{
-  let producto = await productos.update(req.params.id)
+  let producto = await productos.delete(req.params.id)
   res.json(producto)
 })
 

@@ -3,8 +3,8 @@ const app = express();
 const http = require("http").Server(app);
 const PORT = 8080;
 
-//require('./mongo/connection');
-require('./mongo/connectionAtlas');
+require('./mongo/connection');
+//require('./mongo/connectionAtlas');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

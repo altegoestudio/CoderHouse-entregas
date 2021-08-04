@@ -22,6 +22,8 @@ knex.schema.createTable('productos', table =>{
 
 knex.schema.createTable('carrito', table =>{
   table.increments("id");
+  table.string("timestamp");
+  table.string("product");
 }).then(()=>{
   console.log("se creo tabla carrito");
 }).catch((error)=>{
