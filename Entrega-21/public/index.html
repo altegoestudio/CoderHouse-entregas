@@ -3,14 +3,139 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <style media="screen">
+      body{
+        font-family: "Helvetica";
+      }
+      .title{
+        text-align: center;
+      }
+      .card{
+        margin: 10px;
+        border-radius: 5px;
+        max-width: 200px;
+        padding: 20px;
+        background-color: #eee;
+        min-height: 300px;
+        max-height: 400px;
+        color: #666;
+        box-shadow: 1px 15px 19px 3px rgba(171,167,167,0.59);
+        -webkit-box-shadow: 1px 15px 19px 3px rgba(171,167,167,0.59);
+        -moz-box-shadow: 1px 15px 19px 3px rgba(171,167,167,0.59);
+      }
+      .card-center{
+        width: 1040px;
+        display: flex;
+        flex-direction: row;
+        flex-flow: wrap;
+        justify-content: flex-start;
+      }
+      .card-container{
+
+        display: flex;
+        flex-direction: row;
+        flex-flow: wrap;
+        justify-content: center;
+        width: 100%;
+        max-width: calc(100% - 300px);
+        padding-left: 100px;
+        padding-right: 100px;
+      }
+      .card-img{
+        width: 100%;
+      }
+      .card-title{
+        font-size: 25px;
+      }
+      .card-price{
+        font-weight: bolder;
+      }
+      .Productos-form{
+        margin: 50px;
+        padding: 50px;
+        background-color: #ddd;
+        box-shadow: 1px 15px 19px 3px rgba(171,167,167,0.59);
+        -webkit-box-shadow: 1px 15px 19px 3px rgba(171,167,167,0.59);
+        -moz-box-shadow: 1px 15px 19px 3px rgba(171,167,167,0.59);
+      }
+      .productos-aside{
+        border-radius: 10px;
+        width: 300px;
+        padding: 20px;
+        background-color: lightgrey;
+      }
+      .inter{
+        width: 100%;
+        display: flex;
+      }
+    </style>
   </head>
   <body>
-    <h1>Productos</h1>
-    <div id="productList"></div>
 
-    <form class="" action="index.html" method="post">
-      <input type="text" name="" value="">
-    </form>
+
+    <header>
+      <h4>Entrega Final - Pre-entrega 2</h4>
+    </header>
+
+    <div ></div>
+    <section id="productos">
+      <h1 class="title">Lista de Productos</h1>
+      <hr>
+      <div class="inter">
+
+        <div class="card-container">
+          <div class="card-center" id="productList">
+
+          </div>
+        </div>
+        <div class="productos-aside">
+          <h3>Carrito</h3>
+          <div class="" id="carList">
+
+          </div>
+        </div>
+      </div>
+
+      <div class="Productos-form">
+        <form autocomplete="off" id="form-productos">
+
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input
+                id="nombre"
+                class="form-control"
+                type="text"
+                name="title"
+                 required>
+            </div>
+
+            <div class="form-group">
+                <label for="precio">Precio</label>
+                <input
+                id="precio"
+                class="form-control"
+                type="number"
+                step="0.5"
+                name="price"
+                required>
+            </div>
+
+            <div class="form-group">
+                <label for="foto">Foto URL</label>
+                <input
+                id="foto"
+                class="form-control"
+                type="text"
+                name="thumbnail">
+            </div>
+
+
+            <button class="btn btn-success mt-3">Enviar</button>
+
+        </form>
+      </div>
+    </section>
 
     <script src="./js/main.js" charset="utf-8"></script>
   </body>
