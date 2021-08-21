@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Logeate con tus datos</h1>
+    <form name="login" class="" action="/login" method="post" onsubmit="return postlogin()">
+      <label for="username">username</label>
+      <input type="text" name="username" value="">
+      <br>
+      <label for="password">password</label>
+      <input type="text" name="password" value="">
+      <input type="submit" name="" value="login">
+    </form>
+    <br>
+    <hr>
+    <form class="" action="/singup" method="get">
+      <input type="submit" name="" value="registrarme">
+    </form>
+  </body>
+
+  <script type="text/javascript">
+    function postlogin(){
+      console.log("postlogin log");
+      var username = document.forms["login"]["username"].value;
+      var password = document.forms["login"]["password"].value;
+      return {username: username, password: password}
+    }
+  </script>
+</html>

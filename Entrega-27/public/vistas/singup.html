@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Registrate</h1>
+    <form name="singup" class="" action="/singup" method="post" onsubmit="return postsingup()">
+      <label for="username">username</label>
+      <input type="text" name="username" value="">
+      <br>
+      <label for="password">password</label>
+      <input type="text" name="password" value="">
+      <input type="submit" name="" value="login">
+    </form>
+    <br>
+    <hr>
+    <form class="" action="/login" method="get">
+      <input type="submit" name="" value="sing in">
+    </form>
+  </body>
+
+  <script type="text/javascript">
+    function postsingup(){
+      console.log("postsingup log");
+      var username = document.forms["singup"]["username"].value;
+      var password = document.forms["singup"]["password"].value;
+      return {username: username, password: password}
+    }
+  </script>
+</html>
