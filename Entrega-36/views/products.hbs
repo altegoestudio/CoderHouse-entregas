@@ -1,0 +1,130 @@
+<div class="container" style="padding-bottom: 0px">
+  <div class="barr">
+    <h2>Bienvenido {{usuario}}</h2>
+    <form class="" action="/logout" method="get">
+      <button type="submit" class="btn btn-primary">logout</button>
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+<br>
+<div class="container">
+<section id="productos">
+  <h1 class="title">Lista de Productos</h1>
+  <hr>
+  <div class="inter">
+
+    <div class="card-container">
+      <div class="card-center" id="productList">
+
+      </div>
+    </div>
+    <div class="productos-aside">
+      <h3>Carrito</h3>
+      <div class="" id="carList">
+
+      </div>
+      <button type="button" name="button" id="Checkout">Checkout</button>
+    </div>
+  </div>
+
+  <div class="Productos-form">
+    <form autocomplete="off" id="form-productos">
+
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input
+            id="nombre"
+            class="form-control"
+            type="text"
+            name="title"
+             required>
+        </div>
+
+        <div class="form-group">
+            <label for="precio">Precio</label>
+            <input
+            id="precio"
+            class="form-control"
+            type="number"
+            step="0.5"
+            name="price"
+            required>
+        </div>
+
+        <div class="form-group">
+            <label for="foto">Foto URL</label>
+            <input
+            id="foto"
+            class="form-control"
+            type="text"
+            name="thumbnail">
+        </div>
+
+
+        <button class="btn btn-success mt-3">Enviar</button>
+</div>
+<!--
+<script type="text/javascript">
+var prodlist = document.getElementById('productos');
+
+var lista =[
+
+]
+
+////////////////////GET
+function getProductos(){
+  fetch('/api/productos/listar')
+  .then(respuesta => respuesta.json())
+  .then(data => {
+      tamplate(data);
+
+  })
+  .catch(error => {
+      console.log('ERROR', error);
+  });
+}
+
+function tamplate(data){
+  data.map(producto => {
+    var card = `<div class="card" id="${producto._id}">
+                <a href="#" onclick="return deleteP(this)">Eliminar</a>
+                <img class="card-img"src="./jpg/1.png" alt="">
+                <h1 class="card-title">${producto.title}</h1>
+                <p class="card-price">$${producto.price}</p>
+                <a href="#" onclick="return addToCart(this)" ">Agregar a carrito</a>
+              </div>`;
+    lista.push(card)
+  })
+  print(prodlist, lista)
+}
+
+function print(e,a){
+  e.innerHTML = a
+}
+getProductos()
+//////////////////////////DELETE
+
+function deleteP(e){
+  fetch(`/api/productos/delete/${e.parentNode.id}`, {
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      method: "DELETE"
+  })
+  .then(respuesta => respuesta.json())
+  .then(productos => {
+      //form.reset();
+      //socket.emit('update', 'ok');
+  })
+  .catch(error => {
+      console.log('ERROR', error);
+  });
+}
+</script>
+-->

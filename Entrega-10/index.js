@@ -1,20 +1,18 @@
 const express = require('express');
 
 const app = express();
-const handlebars = require("express-handlebars")
+
 //const router = express.Router();
+const handlebars = require("express-handlebars")
 app.engine('hbs', handlebars({
     extname: '.hbs',
     defaultLayout: 'index.hbs',
     layoutsDir: __dirname + '/views/layouts',
     partialsDir: __dirname + '/views/partials/'
 }));
-
-
-
-// seteo el motor de plantilla
 app.set('view engine', 'hbs');
 app.set('views', './views');
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
