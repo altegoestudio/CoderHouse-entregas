@@ -45,7 +45,11 @@ require('./mongo/connection');
 
 //////////MAILER CONFIG
 const nodemailer = require("nodemailer");
-function sendmail(msj){
+
+async function sendmail(msj, mail){
+let a = await Carrito.find({});
+
+
 
 const transporter = nodemailer.createTransport({
   host: "smtp.ethereal.email",
@@ -58,9 +62,9 @@ const transporter = nodemailer.createTransport({
 
 const mailOptions = {
   from: "Servidor Node.js",
-  to: "cordie.osinski@ethereal.email",
+  to: mail,
   subject: "Mail de Prueba de Productos",
-  html:  `<div>${msj}</div>`
+  html:  `<div>${a}</div>`
 }
 
 
@@ -146,8 +150,13 @@ passport.use("singup", new LocalStrategy({
       }else{
         var newUser =  new User();
 
-        newUser.username = username
+        newUser.username = username;
         newUser.password = createHash(password);
+        newUser.avatar = req.body.avatar;
+        newUser.mail = req.body.mail;
+        newUser.address = req.body.address;
+        newUser.age = req.body.age;
+        newUser.phone = req.body.phone;
 
         newUser.save(function(err){
           if (err) {
@@ -162,6 +171,9 @@ passport.use("singup", new LocalStrategy({
   process.nextTick(findOrCreateUSer);
 }))
 
+
+
+
 passport.use("login", new LocalStrategy({passReqToCallback: true},function(req, username, password, done){
     User.findOne({"username": username}, function(err, user){
       if(err){
@@ -173,7 +185,7 @@ passport.use("login", new LocalStrategy({passReqToCallback: true},function(req, 
         if(!isValidPassword(user,password)){
           return done(null, false, console.log("contraseña invalida"))
         }else{
-          console.log("logeado");
+          console.log(user);
           return done(null, user)
         }
       }
@@ -191,6 +203,7 @@ app.get("/singup", (req,res)=>{
   res.render("singup")
 })
 app.post("/singup", passport.authenticate("singup", {failureRedirect: "failsingup"}), (req,res)=>{
+
   res.render("Bienvenida")
 })
 app.get("/failsingup", (req,res)=>{
@@ -215,10 +228,16 @@ app.get("/logout", (req,res)=>{
   res.send("El usuario se ha deslogeado correctamente")
 })
 
+app.get("/test", (req,res)=>{
+
+  res.send("El usuario se ha deslogeado correctamente")
+})
+
+
 app.post("/sendmail", (req, res)=>{
-  console.log(req.body);
-   sendmail(req.body)
-   res.send("mensaje enviado")
+  console.log("sendMail",req.body);
+  sendmail(req.body, req.user.mail);
+  res.send("mensaje enviado")
 })
 
 //ROUTER
