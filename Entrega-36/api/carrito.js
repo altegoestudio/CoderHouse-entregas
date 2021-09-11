@@ -26,7 +26,7 @@ class Carrito{
     return db.update("carrito", id, data);
   }
   async delete(id){
-    return db.delete("carrito",id);
+    return db.delete("carrito",id); //await?
   }
 }
 

@@ -1,9 +1,14 @@
 <div class="container" style="padding-bottom: 0px">
   <div class="barr">
     <h2>Bienvenido {{usuario}}</h2>
-    <form class="" action="/logout" method="get">
-      <button type="submit" class="btn btn-primary">logout</button>
-    </form>
+    <div class="user">
+
+      <form class="" action="/logout" method="get">
+        <button type="submit" class="btn btn-primary">logout</button>
+      </form>
+      <img src="{{avatar}}" alt="" style="width: 100px; height: 100px; border-radius: 50px;">
+    </div>
+
 
 
   </div>
@@ -69,6 +74,7 @@
 
         <button class="btn btn-success mt-3">Enviar</button>
 </div>
+
 <!--
 <script type="text/javascript">
 var prodlist = document.getElementById('productos');

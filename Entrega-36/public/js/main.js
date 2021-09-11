@@ -54,7 +54,6 @@ function tamplateCarrito(data){
                 <a id="${producto._id}" href="#" onclick="return deleteC(this)">Eliminar</a><hr/>`;
     carrito.push(card)
   })
-  console.log(carrito);
   print(carlist,carrito)
 }
 
@@ -113,18 +112,40 @@ function addToCart(e){
 }
 
 const form = document.getElementById('form-productos');
+if(form){
+  form.addEventListener('submit', event => {
+      event.preventDefault();
 
-form.addEventListener('submit', event => {
+      const data = { title: form[0].value, price: form[1].value, thumbnail: form[2].value };
+      console.log(data);
+      fetch('/api/productos/guardar', {
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          method: 'POST',
+          body: JSON.stringify(data)
+      })
+      .then(respuesta => respuesta.json())
+      .then(productos => {
+          form.reset();
+          //socket.emit('update', 'ok');
+      })
+      .catch(error => {
+          console.log('ERROR', error);
+      });
+  });
+}
+
+if(ckout){
+  ckout.addEventListener("click", evento =>{
     event.preventDefault();
-
-    const data = { title: form[0].value, price: form[1].value, thumbnail: form[2].value };
-    console.log(data);
-    fetch('/api/productos/guardar', {
+    console.log(evento.target);
+    fetch('/sendMail', {
         headers: {
             'Content-Type': 'application/json'
         },
         method: 'POST',
-        body: JSON.stringify(data)
+        body: JSON.stringify(evento.target)
     })
     .then(respuesta => respuesta.json())
     .then(productos => {
@@ -134,24 +155,5 @@ form.addEventListener('submit', event => {
     .catch(error => {
         console.log('ERROR', error);
     });
-});
-
-ckout.addEventListener("click", evento =>{
-  event.preventDefault();
-  console.log(evento.target);
-  fetch('/sendMail', {
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(evento.target)
   })
-  .then(respuesta => respuesta.json())
-  .then(productos => {
-      form.reset();
-      //socket.emit('update', 'ok');
-  })
-  .catch(error => {
-      console.log('ERROR', error);
-  });
-})
+}

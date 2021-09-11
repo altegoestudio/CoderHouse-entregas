@@ -21,7 +21,7 @@ const MongoStore = require("connect-mongo");
 //SMS
 function sendSms(){
   const accountSid = "AC6375e65c271abc92b47b2a5db9d56c15";
-  const authToken = "a259f25815a42b41d66096ee32505d18";
+  const authToken = "671fdf1ce96d3d6372aeb757fb1cc0cc";
 
   const client = require("twilio")(accountSid,authToken);
 
@@ -46,27 +46,22 @@ require('./mongo/connection');
 //////////MAILER CONFIG
 const nodemailer = require("nodemailer");
 
-async function sendmail(msj, mail){
-let a = await Carrito.find({});
+function sendmail(msj, mail, asunto){
+  const transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    auth: {
+      user: "cordie.osinski@ethereal.email",
+      pass: "e5QMyhdE2jdGffQnQT"
+    }
+  })
 
-
-
-const transporter = nodemailer.createTransport({
-  host: "smtp.ethereal.email",
-  port: 587,
-  auth: {
-    user: "cordie.osinski@ethereal.email",
-    pass: "e5QMyhdE2jdGffQnQT"
+  const mailOptions = {
+    from: "Servidor Node.js",
+    to: mail,
+    subject: asunto,
+    html:  `<div>${msj}</div>`
   }
-})
-
-const mailOptions = {
-  from: "Servidor Node.js",
-  to: mail,
-  subject: "Mail de Prueba de Productos",
-  html:  `<div>${a}</div>`
-}
-
 
   transporter.sendMail(mailOptions, (err, info)=>{
     if(err){
@@ -77,7 +72,7 @@ const mailOptions = {
   })
 }
 
-//////////////////////////////////////////////////////////////////////////////////handlebars
+
 const handlebars = require("express-handlebars")
 app.engine('hbs', handlebars({
     extname: '.hbs',
@@ -128,7 +123,6 @@ passport.serializeUser(function(user, done){
   done(null, user.id);
 })
 passport.deserializeUser(function(id, done){
-  //let user = usuarios.find(u => u.id == id);
   User.findById(id,function(err,user){
     done(err,user)
   })
@@ -196,16 +190,22 @@ passport.use("login", new LocalStrategy({passReqToCallback: true},function(req, 
 let usuario = "Desconocido";
 
 app.get("/", checkAuthentication, (req,res)=>{
-  res.render("products", {usuario: usuario})
+  console.log(req.session);
+  console.log(req.body);
+  res.render("products", {usuario: req.session.user, avatar: req.session.avatar})
 })
 
 app.get("/singup", (req,res)=>{
   res.render("singup")
 })
+
 app.post("/singup", passport.authenticate("singup", {failureRedirect: "failsingup"}), (req,res)=>{
 
+  var msj = `<p>Nuevo Usuario: ${req.user.username}</p><br><p>Mail: ${req.user.mail}</p><br><p>Foto: <img src="${req.user.avatar}" style="width:100px;height:100px;"></p><br>`;
+  sendmail(msj, req.user.mail, "Nuevo registro")
   res.render("Bienvenida")
 })
+
 app.get("/failsingup", (req,res)=>{
   res.send("as")
 })
@@ -216,6 +216,8 @@ app.get("/login", (req,res)=>{
 })
 app.post("/login", passport.authenticate("login", {failureRedirect: "/faillogin"}), (req,res)=>{
   req.session.user = req.user.username;
+  req.session.avatar = req.user.avatar;
+  req.session.mail = req.user.mail
   usuario = req.session.user
   res.redirect("/")
 })
@@ -234,11 +236,13 @@ app.get("/test", (req,res)=>{
 })
 
 
-app.post("/sendmail", (req, res)=>{
-  console.log("sendMail",req.body);
-  sendmail(req.body, req.user.mail);
+app.post("/sendmail", async (req, res)=>{
+  let a = await Carrito.find({});
+  sendmail(a, req.user.mail, "Nuevo Pedido");
+  sendSms();
   res.send("mensaje enviado")
 })
+
 
 //ROUTER
 const routerProductos = require('./router/routesProducto');
@@ -248,7 +252,7 @@ const routerCarrito = require('./router/routesCarrito');
 app.use("/api/carrito", routerCarrito);
 
 //SERVER
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const server = http.listen(PORT, ()=>{
   console.log("Servidor corriendo en el puerto:", PORT);
 })
