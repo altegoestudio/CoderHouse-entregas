@@ -17,6 +17,9 @@ const advancedOptions = {
   useUnifiedTopology: true
 }
 require('./mongo/connection');
+
+
+
 const bodyParser = require("body-parser");
 const bCrypt = require("bCrypt");
 const passport = require("passport");
@@ -29,8 +32,8 @@ const schemaMensaje = new schema.Entity('post', {author: schemaAuthor},{idAttrib
 const schemaMensajes = new schema.Entity('posts',{mensajes: [schemaMensaje]},{idAttribute: 'id'});
 
 passport.use(new FacebookStrategy({
-    clientID: "204998194979286",
-    clientSecret: "1c03493e0bd2121a326aa0c5a97e150c",
+    clientID: process.argv[3] || "204998194979286",
+    clientSecret: process.argv[4] || "1c03493e0bd2121a326aa0c5a97e150c",
     callbackURL: '/auth/facebook/callback',
     profileFields: ['id', 'displayName', 'photos', 'emails'],
     scope: ['email']
@@ -253,9 +256,22 @@ app.get("/auth/facebook/callback", passport.authenticate("facebook", {successRed
 
  //proces es un objeto global
  //
+ app.get('/info', (req, res) => {
+     let a= {
+       'version de node ' : process.version,
+       'sistema operativo': process.platform,
+       'uso de la memoria': process.memoryUsage(),
+       'id del proceso': process.pid,
+       'path de ejecucion': process.execPath,
+       'arumentos de entrada': process.argv,
+       'carpeta corriente': process.cwd()
+     };
 
+     res.send(resp)
 
-const PORT = 8080;
+ });
+
+const PORT = process.argv[2] || 8080;
 
 
 const server = http.listen(PORT, () => {
