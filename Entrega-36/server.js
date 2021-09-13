@@ -39,8 +39,8 @@ function sendSms(){
 const User = require("./models/users");
 
 //DB
-require('./mongo/connection');
-//require('./mongo/connectionAtlas');
+//require('./mongo/connection');
+require('./mongo/connectionAtlas');
 
 
 //////////MAILER CONFIG
