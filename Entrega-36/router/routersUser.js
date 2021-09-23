@@ -2,8 +2,11 @@
 const express = require("express");
 const app = express();
 const http = require("http").Server(app);
-const Carrito = require('./models/carritoMongo');
-require('dotenv').config();
+const router = express.Router();
+const Carrito = require('../models/carritoMongo');
+
+require('../mongo/connection');
+//require('../mongo/connectionAtlas');
 
 
 //DEPENDENCIES
@@ -14,6 +17,8 @@ const passport = require("passport");
 const session = require("express-session");
 const LocalStrategy = require("passport-local").Strategy;
 const MongoStore = require("connect-mongo");
+const User = require("../models/users");
+
 
 //MAILER
 
@@ -34,16 +39,6 @@ function sendSms(){
   .catch(console.log)
 }
 
-
-//MODELS
-const User = require("./models/users");
-
-//DB
-//require('./mongo/connection');
-require('./mongo/connectionAtlas');
-
-
-//////////MAILER CONFIG
 const nodemailer = require("nodemailer");
 
 function sendmail(msj, mail, asunto){
@@ -51,8 +46,8 @@ function sendmail(msj, mail, asunto){
     host: "smtp.ethereal.email",
     port: 587,
     auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASS
+      user: "cordie.osinski@ethereal.email",
+      pass: "e5QMyhdE2jdGffQnQT"
     }
   })
 
@@ -72,21 +67,6 @@ function sendmail(msj, mail, asunto){
   })
 }
 
-
-const handlebars = require("express-handlebars")
-app.engine('hbs', handlebars({
-    extname: '.hbs',
-    defaultLayout: 'index.hbs',
-    layoutsDir: __dirname + '/views/layouts',
-    partialsDir: __dirname + '/views/partials/'
-}));
-app.set('view engine', 'hbs');
-app.set('views', './views');
-//APPS
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/public'));
-app.use((err,req,res,next)=>{  console.log(err.message);return res.status(500).send("Upss! Algo Salio mal")})
 
 app.use(session({
   store: MongoStore.create({
@@ -191,54 +171,54 @@ passport.use("login", new LocalStrategy({passReqToCallback: true},function(req, 
 //ROUTES
 let usuario = "Desconocido";
 
-app.get("/", checkAuthentication, (req,res)=>{
+router.get("/", checkAuthentication, (req,res)=>{
   console.log(req.session);
   console.log(req.body);
   res.render("products", {usuario: req.session.user, avatar: req.session.avatar})
 })
 
-app.get("/singup", (req,res)=>{
+router.get("/singup", (req,res)=>{
   res.render("singup")
 })
 
-app.post("/singup", passport.authenticate("singup", {failureRedirect: "failsingup"}), (req,res)=>{
+router.post("/singup", passport.authenticate("singup", {failureRedirect: "failsingup"}), (req,res)=>{
 
   var msj = `<p>Nuevo Usuario: ${req.user.username}</p><br><p>Mail: ${req.user.mail}</p><br><p>Foto: <img src="${req.user.avatar}" style="width:100px;height:100px;"></p><br>`;
   sendmail(msj, req.user.mail, "Nuevo registro")
   res.render("Bienvenida")
 })
 
-app.get("/failsingup", (req,res)=>{
+router.get("/failsingup", (req,res)=>{
   res.send("as")
 })
 
 
-app.get("/login", (req,res)=>{
+router.get("/login", (req,res)=>{
   res.render("login")
 })
-app.post("/login", passport.authenticate("login", {failureRedirect: "/faillogin"}), (req,res)=>{
+router.post("/login", passport.authenticate("login", {failureRedirect: "/faillogin"}), (req,res)=>{
   req.session.user = req.user.username;
   req.session.avatar = req.user.avatar;
   req.session.mail = req.user.mail
   usuario = req.session.user
   res.redirect("/")
 })
-app.get("/faillogin", (req,res)=>{
+router.get("/faillogin", (req,res)=>{
   res.render("fallo")
 })
 
-app.get("/logout", (req,res)=>{
+router.get("/logout", (req,res)=>{
   req.logout();
   res.send("El usuario se ha deslogeado correctamente")
 })
 
-app.get("/test", (req,res)=>{
+router.get("/test", (req,res)=>{
 
   res.send("El usuario se ha deslogeado correctamente")
 })
 
 
-app.post("/sendmail", async (req, res)=>{
+router.post("/sendmail", async (req, res)=>{
   let a = await Carrito.find({});
   sendmail(a, req.user.mail, "Nuevo Pedido");
   sendSms();
@@ -246,23 +226,4 @@ app.post("/sendmail", async (req, res)=>{
 })
 
 
-//ROUTER
-/*
-const routerUser = require('./router/routersUser');
-app.use("/", routerUser);
-*/
-const routerProductos = require('./router/routesProducto');
-app.use("/api/productos", routerProductos);
-
-const routerCarrito = require('./router/routesCarrito');
-app.use("/api/carrito", routerCarrito);
-
-//SERVER
-const PORT = process.env.PORT || 8080;
-const server = http.listen(PORT, ()=>{
-  console.log("Servidor corriendo en el puerto:", PORT);
-})
-
-server.on("error", (error)=>{
-  console.log("se produjo el siguiente error en el servidor:", error);
-})
+module.exports = router;

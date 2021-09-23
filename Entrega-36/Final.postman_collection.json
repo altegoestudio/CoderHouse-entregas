@@ -1,0 +1,310 @@
+{
+	"info": {
+		"_postman_id": "e5d2ee92-0703-43b6-9c62-099228d45722",
+		"name": "Final",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Productos/Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Atlas\",\r\n    \"price\": 12,\r\n    \"thumbnail\": \"http://asas.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/productos/guardar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"guardar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Productos/Read",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/productos/listar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"listar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Productos/Read/id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/productos/listar/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"listar",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Productos/Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Atlas Update\",\r\n    \"price\": 12,\r\n    \"thumbnail\": \"http://asas.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/productos/actualizar/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"actualizar",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Productos/Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/productos/delete/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"delete",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "-----------------------------------------------",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "s",
+					"host": [
+						"s"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Carrito/Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/carrito/guardar/:id_p",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito",
+						"guardar",
+						":id_p"
+					],
+					"variable": [
+						{
+							"key": "id_p",
+							"value": "60fd9a818a33a14fbc599faf"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Carrito/Read",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carrito/listar/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito",
+						"listar",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Carrito/Read/id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carrito/listar/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito",
+						"listar",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Carrito/Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carrito/actualizar/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito",
+						"actualizar",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Carrito/Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carrito/delete/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito",
+						"delete",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
